@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	table "github.com/jedib0t/go-pretty/v6/table"
@@ -17,19 +16,19 @@ func main() {
 	t.SetOutputMirror(os.Stdout)
 	t.AppendHeader(table.Row{"Week #", "Primary", "Secondary"})
 
+	weekCounter := 46
 	for i := 0; i < 10; i++ {
 		for j := 0; j < len(primaries); j++ {
-			weekNumber := ""
-			if j == 0 {
-				weekNumber = fmt.Sprint(i + 1)
-			} else {
-				weekNumber = ""
-			}
 			t.AppendRows([]table.Row{
-				{weekNumber, primaries[j], secondaries[j]},
+				{weekCounter, primaries[j], secondaries[j]},
 			})
+			weekCounter++
+			if weekCounter > 52 {
+				weekCounter = 1
+			}
+			t.AppendSeparator()
 		}
-		t.AppendSeparator()
+		// t.AppendSeparator()
 
 		// Swapping secondaries around
 		tempSecondary := secondaries[1:]
